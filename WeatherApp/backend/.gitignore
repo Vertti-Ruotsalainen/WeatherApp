@@ -1,0 +1,15 @@
+# Node.js
+node_modules/
+.env
+package-lock.json
+
+# Logs
+*.log
+logs/
+
+# VS Code
+.vscode/
+
+# System-specific
+.DS_Store
+Thumbs.db

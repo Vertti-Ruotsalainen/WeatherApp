@@ -7,7 +7,8 @@ document.getElementById("searchButton").addEventListener("click", function() {
 
 function fetchWeather(city) {
     const apiKey = "bfa5bea0c2b5473f5c11514a3782068c"; // Vaihda oma OpenWeather API-avaimesi tähän
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fi&appid=${apiKey}`;
+
 
     fetch(url)
         .then(response => response.json())
