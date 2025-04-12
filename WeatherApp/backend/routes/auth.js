@@ -112,4 +112,33 @@ router.put("/me", authenticateToken, async (req, res) => {
     }
 });
 
+// POST /api/auth/preferences - tallenna sääasetukset
+router.post("/preferences", authenticateToken, async (req, res) => {
+    const { location, units } = req.body; // esim. "Helsinki", "metric"
+    try {
+        await pool.query(
+            "INSERT INTO user_preferences (user_id, location, units) VALUES ($1, $2, $3) ON CONFLICT (user_id) DO UPDATE SET location = $2, units = $3",
+            [req.user.id, location, units]
+        );
+        res.json({ message: "Sääasetukset tallennettu." });
+    } catch (err) {
+        console.error("Virhe sääasetuksissa:", err);
+        res.status(500).json({ message: "Palvelinvirhe", error: err.message });
+    }
+});
+
+// GET /api/auth/preferences - hae sääasetukset
+router.get("/preferences", authenticateToken, async (req, res) => {
+    try {
+        const result = await pool.query(
+            "SELECT location, units FROM user_preferences WHERE user_id = $1",
+            [req.user.id]
+        );
+        res.json(result.rows[0] || {});
+    } catch (err) {
+        console.error("Virhe sääasetusten haussa:", err);
+        res.status(500).json({ message: "Palvelinvirhe", error: err.message });
+    }
+});
+
 module.exports = router;

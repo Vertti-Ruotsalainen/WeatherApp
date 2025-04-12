@@ -1,11 +1,9 @@
-const { Pool } = require('pg');
+const { Pool } = require("pg");
+require("dotenv").config();
 
 const pool = new Pool({
-  user: 'postgres',          // Vaihda jos loit toisen käyttäjän
-  host: 'localhost',
-  database: 'weatherapp',    // Tietokannan nimi, jonka loit pgAdminissa
-  password: 'FaskiaVenytt3ly*',  // PostgreSQL-käyttäjän salasana
-  port: 5432
+  connectionString: process.env.DATABASE_URL || "",
+  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
 });
 
 module.exports = pool;
