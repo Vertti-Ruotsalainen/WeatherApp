@@ -1,0 +1,12 @@
+config:
+  target: "http://localhost:5001"
+  phases:
+    - duration: 10
+      arrivalRate: 5
+scenarios:
+  - flow:
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "uusi@example.com"
+            password: "salasana123"
