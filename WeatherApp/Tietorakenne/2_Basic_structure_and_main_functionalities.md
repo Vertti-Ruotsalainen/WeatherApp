@@ -94,11 +94,17 @@ Rakenneperiaatteet:
 ## 6. Functionalities
 
 ✅ Käyttäjän rekisteröinti ja kirjautuminen
+
 ✅ JWT-tokenin käyttö suojatuilla reiteillä
+
 ✅ Sään hakeminen OpenWeatherMap API:sta
+
 ✅ Käyttäjäkohtaisen asetuksen tallennus (viimeisin kaupunki)
+
 ✅ Profiilin tarkastelu (nimi ja sähköposti)
+
 ✅ Visuaalisesti näyttävä ulkoasu taustakuvalla
+
 ✅ Responsive-napit sivun kulmissa (Profiili / Kirjaudu ulos)
 
 ## 7. Code quality and documentation
