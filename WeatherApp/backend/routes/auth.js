@@ -5,6 +5,24 @@ const jwt = require("jsonwebtoken");
 const pool = require("../db");
 require("dotenv").config();
 
+// Middleware: Tarkistaa JWT-tokenin
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) {
+        return res.status(401).json({ message: "Token puuttuu." });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) {
+            return res.status(403).json({ message: "Virheellinen token." });
+        }
+        req.user = user;
+        next();
+    });
+}
+
 // POST /api/auth/register
 router.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
@@ -63,6 +81,18 @@ router.post("/login", async (req, res) => {
         });
     } catch (err) {
         console.error("Kirjautumisvirhe:", err);
+        res.status(500).json({ message: "Palvelinvirhe", error: err.message });
+    }
+});
+
+// GET /api/auth/me - suojattu reitti
+router.get("/me", authenticateToken, async (req, res) => {
+    try {
+        const result = await pool.query("SELECT id, name, email, created_at FROM users WHERE id = $1", [req.user.id]);
+        const user = result.rows[0];
+        res.json(user);
+    } catch (err) {
+        console.error("Virhe suojatussa reitissä:", err);
         res.status(500).json({ message: "Palvelinvirhe", error: err.message });
     }
 });
