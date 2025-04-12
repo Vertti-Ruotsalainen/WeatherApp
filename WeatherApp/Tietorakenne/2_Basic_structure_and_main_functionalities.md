@@ -58,20 +58,20 @@ Kaikki tilat, kuten city, weather ja token, hallitaan Reactin useState ja useEff
 
 Tietokantana käytetään PostgreSQL-palvelua. Taulut:
 
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+    CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+      email VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
 
-CREATE TABLE user_preferences (
-  id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  location VARCHAR(100),
-  units VARCHAR(10)
-);
+    CREATE TABLE user_preferences (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+      location VARCHAR(100),
+      units VARCHAR(10)
+    );
 
 Tietokantaa käytettiin alussa pgAdmin 4:n kautta, mutta siitä luovuttiin. Nykyään kaikki toiminnot hoidetaan backendin kautta ohjelmallisesti, mikä tukee versionhallintaa ja automatisointia.
 
@@ -92,11 +92,17 @@ Rakenneperiaatteet:
 ## 6. Functionalities
 
 ✅ Käyttäjän rekisteröinti ja kirjautuminen
+
 ✅ JWT-tokenin käyttö suojatuilla reiteillä
+
 ✅ Sään hakeminen OpenWeatherMap API:sta
+
 ✅ Käyttäjäkohtaisen asetuksen tallennus (viimeisin kaupunki)
+
 ✅ Profiilin tarkastelu (nimi ja sähköposti)
+
 ✅ Visuaalisesti näyttävä ulkoasu taustakuvalla
+
 ✅ Responsive-napit sivun kulmissa (Profiili / Kirjaudu ulos)
 
 ## 7. Code quality and documentation
