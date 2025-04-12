@@ -97,4 +97,19 @@ router.get("/me", authenticateToken, async (req, res) => {
     }
 });
 
+// PUT /api/auth/me - päivitä käyttäjän nimi tai sähköposti
+router.put("/me", authenticateToken, async (req, res) => {
+    const { name, email } = req.body;
+    try {
+        await pool.query(
+            "UPDATE users SET name = $1, email = $2 WHERE id = $3",
+            [name, email, req.user.id]
+        );
+        res.json({ message: "Käyttäjän tiedot päivitetty." });
+    } catch (err) {
+        console.error("Virhe päivityksessä:", err);
+        res.status(500).json({ message: "Palvelinvirhe", error: err.message });
+    }
+});
+
 module.exports = router;
