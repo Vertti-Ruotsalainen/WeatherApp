@@ -27,6 +27,15 @@ export default function WeatherView({ onLogout, onProfile }) {
     }
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setIsAuthorized(false);
+    } else {
+      setIsAuthorized(true);
+    }
+  }, []);
+
   const fetchWeather = async (inputCity = city) => {
     if (!inputCity) return;
     const apiKey = "bfa5bea0c2b5473f5c11514a3782068c";

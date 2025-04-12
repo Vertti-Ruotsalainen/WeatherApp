@@ -54,8 +54,6 @@ Frontend on toteutettu Reactilla ja se tarjoaa:
 
 Kaikki tilat, kuten city, weather ja token, hallitaan Reactin useState ja useEffect-hookeilla.
 
-
-
 ## 4. Database
 
 Tietokantana käytetään PostgreSQL-palvelua. Taulut:

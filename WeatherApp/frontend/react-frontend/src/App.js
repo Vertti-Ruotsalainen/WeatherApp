@@ -1,11 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import WeatherView from "./components/WeatherView";
 import UserProfile from "./components/UserProfile";
 
 function App() {
-  const [view, setView] = useState("login");
+  const [view, setView] = useState("loading");
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setView("weather");
+    } else {
+      setView("login");
+    }
+  }, []);
+
+  if (view === "loading") {
+    return <p>Ladataan sovellusta...</p>;
+  }
 
   return (
     <div className="App">
