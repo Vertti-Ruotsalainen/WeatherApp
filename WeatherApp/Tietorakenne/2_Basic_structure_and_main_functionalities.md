@@ -7,6 +7,7 @@ Tässä kuvat sisäänkirjutumis ikkunasta ja perus näkymä kirjautuneelle käy
 
 ![kirjautunut](https://github.com/user-attachments/assets/76d9aa19-8441-4579-82a6-0d54d30cfc31)
 
+kirjautuneesta kuvasta voi päätellä sovelluksen perusperiaatteen, eli kirjoitat kaupungin ja se antaa halutut tiedot (asetuksista tulee päivitys tulevaisuudessa)
 
 ## 1. Environment
 
