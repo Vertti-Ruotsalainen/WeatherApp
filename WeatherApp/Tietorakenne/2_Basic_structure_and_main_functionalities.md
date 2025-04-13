@@ -1,6 +1,6 @@
 # Project phase 2 - Basic structure and main functionalities
 
-Add something
+
 
 ## 1. Environment
 
@@ -20,7 +20,7 @@ Projektin kehitysympäristö sisältää seuraavat teknologiat ja työkalut:
 
     Git + GitHub: versionhallinta
 
-    dotenv: ympäristömuuttujien hallintaan
+    dotenv: ympäristömuuttujien hallintaan (.env)
 
 Projekti on jaettu frontend- ja backend-kansioihin, ja molemmat toimivat omana itsenäisenä yksikkönään.
 
@@ -38,21 +38,21 @@ Backend on rakennettu Node.js:llä ja Expressillä. Se tarjoaa REST-tyylisen raj
 
 ## 3. Frontend
 
-Frontend on toteutettu Reactilla ja se tarjoaa:
+    Frontend on toteutettu Reactilla ja se tarjoaa:
 
-    Kirjautumis- ja rekisteröintisivut
+        Kirjautumis- ja rekisteröintisivut
 
-    Suojattu sääsivu, johon pääsee vain kirjautunut käyttäjä
+        Suojattu sääsivu, johon pääsee vain kirjautunut käyttäjä
 
-    Hakukenttä, jossa käyttäjä voi hakea kaupungin säätiedot
+        Hakukenttä kaupungin sään hakemiseen
 
-    Asetusten tallennus, jolloin sovellus muistaa edellisen haun
+        Asetusten tallennus: viimeisin kaupunki tallennetaan käyttäjäkohtaisesti
 
-    Profiilisivu, jossa käyttäjä voi tarkastella omia tietojaan
+        Profiilisivu: käyttäjä voi tarkastella tietojaan (tulossa parannuksia)
 
-    Tyylikäs ulkoasu, jossa on avaruudesta otettu taustakuva
+        Tyylikäs ulkoasu, jossa on avaruudesta otettu taustakuva
 
-Kaikki tilat, kuten city, weather ja token, hallitaan Reactin useState ja useEffect-hookeilla.
+        Tilojen hallinta: city, weather ja token useState/useEffect-hookeilla
 
 ## 4. Database
 
@@ -107,12 +107,38 @@ Rakenneperiaatteet:
 
 ## 7. Code quality and documentation
 
-Add something
+Koodi on jaettu komponentteihin ja reitteihin
+
+Kommenteilla selitetty mm. tokenin tarkistus, API-kutsujen virhetilanteet
+
+Versionhallinta toteutettu Git + GitHubilla selkein kommittiviestein
+
+README.md tiedoston puuttumin tällä hetkellä iso miinus (tulee tulevaisuudessa sisältäen selvät käyttöohjeet ja tarkoitukset sovellukselle)
 
 ## 8. Testing and error handling
 
-Add something
+✅ Yksikkötesti: Jest-testit Reactin logiikalle
+
+✅ E2E-testi: Playwrightilla toteutettu login- ja säätesti
+
+✅ Kuormitustesti: Artillerylla testattu /login-reitin kestoa usealla pyynnöllä
+
+Virheenkäsittely:
+
+API-reitit palauttavat selkeät JSON-virheilmoitukset
+
+Frontendissä ilmoitukset esim. "Et ole kirjautunut sisään"
+
+(tähän screenshotit testeistä)
 
 ## 9. User interface and interaction
 
-Add something
+Responsiivinen ulkoasu
+
+Reactilla toteutettu yksisivuinen sovellus (SPA)
+
+Kirjautumisen jälkeen käyttäjä ohjataan sääsivulle
+
+Asetukset tallennetaan automaattisesti (muistaa viimeisimmän haun jos kirjaudut ulos ja takaisin sisään)
+
+Napit sijoitettu kulmiin: Profiili vasemmalle, Kirjaudu ulos oikealle
