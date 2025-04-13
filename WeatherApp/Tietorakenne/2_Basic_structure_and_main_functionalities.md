@@ -130,6 +130,7 @@ API-reitit palauttavat selkeät JSON-virheilmoitukset
 Frontendissä ilmoitukset esim. "Et ole kirjautunut sisään"
 
 (tähän screenshotit testeistä)
+![testit_projekti2](https://github.com/user-attachments/assets/01b110a2-9296-4dae-8419-2a2212d44624)
 
 ## 9. User interface and interaction
 
