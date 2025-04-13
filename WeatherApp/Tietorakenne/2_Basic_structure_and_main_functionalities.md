@@ -73,7 +73,7 @@ Tietokantana käytetään PostgreSQL-palvelua. Taulut:
       units VARCHAR(10)
     );
 
-Tietokantaa käytettiin alussa pgAdmin 4:n kautta, mutta siitä luovuttiin. Nykyään kaikki toiminnot hoidetaan backendin kautta ohjelmallisesti, mikä tukee versionhallintaa ja automatisointia.
+Tietokantaa käytettiin alussa pgAdmin 4:n kautta, mutta siitä luovuttiin. Nykyään kaikki toiminnot hoidetaan backendin kautta ohjelmallisesti.
 
 ## 5. Basic structure and architecture
 
