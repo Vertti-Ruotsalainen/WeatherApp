@@ -28,7 +28,7 @@
 
 🌟 Mahdolliset lisäominaisuudet
 
-    Sääennuste seuraaville päiville (PRIO 1)
+    Sääennuste seuraaville päiville PRIO 1
 
       Esim. 5 päivän ennuste erilliseen komponenttiin.
 
