@@ -28,11 +28,11 @@
 
 🌟 Mahdolliset lisäominaisuudet
 
-    Sääennuste seuraaville päiville
+    Sääennuste seuraaville päiville (PRIO 1)
 
       Esim. 5 päivän ennuste erilliseen komponenttiin.
 
-      Sään selkeä ymmärtäminen, eli esimerkiksi tieto siitä sataako vai ei (lievä tihuttainen ei kerro kenellekkään yhtään mitään. Tämä prio 1 koska muuten sovellukselta menee pohja)
+      Sään selkeä ymmärtäminen, eli esimerkiksi tieto siitä sataako vai ei (lievä tihuttainen ei kerro kenellekkään yhtään mitään.)
 
     Säähistoria
 
