@@ -1,5 +1,11 @@
 # Project phase 2 - Basic structure and main functionalities
 
+Tässä kuvat sisäänkirjutumis ikkunasta ja perus näkymä kirjautuneelle käyttäjälle
+
+
+![sisäänkirjautuminen](https://github.com/user-attachments/assets/57bf160a-9c8e-4173-983a-dfc835ddb352)
+
+![kirjautunut](https://github.com/user-attachments/assets/76d9aa19-8441-4579-82a6-0d54d30cfc31)
 
 
 ## 1. Environment
