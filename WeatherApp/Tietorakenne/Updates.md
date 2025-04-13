@@ -4,23 +4,23 @@
 
     Sisältäisi projektikuvauksen, asennusohjeet, testauskomennot ja live-esittelyn linkin (jos julkaistu).
 
-    Koodikommenttien laajennus
+  Koodikommenttien laajennus
 
     Esimerkiksi komponenttien alkuun tiivis kuvaus (Props, Toiminta, Mahdollinen tuleva jatkokehitys).
 
-    Virheviestien parantaminen käyttäjälle
+  Virheviestien parantaminen käyttäjälle
 
     Esimerkiksi "Kirjautuminen epäonnistui" voisi tarkentua: "Salasana on virheellinen" tai "Sähköpostia ei löytynyt".
 
-    Käyttäjäntarkistus frontendissä
+  Käyttäjäntarkistus frontendissä
 
     Estää tokenin käytön, jos se on vanhentunut tai ei sisällä vaadittuja kenttiä.
 
-    Yhtenäisempi navigointi
+  Yhtenäisempi navigointi
 
     Mahdollisuus siirtyä takaisin etusivulle/profiiliin helposti ilman kirjautumista ulos.
 
-    Koodin uudelleenorganisointi
+  Koodin uudelleenorganisointi
 
     Esimerkiksi erillinen services/-kansio API-kutsuilla Reactissa
 
@@ -28,33 +28,33 @@
 
 🌟 Mahdolliset lisäominaisuudet
 
-    Sääennuste seuraaville päiville PRIO 1
+  Sääennuste seuraaville päiville PRIO 1
 
       Esim. 5 päivän ennuste erilliseen komponenttiin.
 
       Sään selkeä ymmärtäminen, eli esimerkiksi tieto siitä sataako vai ei (lievä tihuttainen ei kerro kenellekkään yhtään mitään.)
 
-    Säähistoria
+  Säähistoria
 
       Mahdollisuus tarkastella aikaisempia hakuja, joko lokaalisti tai tietokantaan tallennettuna.
 
-      Pimeä tila / teeman vaihto
+  Pimeä tila / teeman vaihto
 
       Valittavissa asetuksista.
 
-    Kielivalinta
+  Kielivalinta
 
       Suomi / Englanti / muu
 
-    Responsiivisuuden parantaminen mobiililaitteilla
+  Responsiivisuuden parantaminen mobiililaitteilla
 
       Tuki pienehköille näytöille, mahdollisesti media query -tyylisäännöillä.
 
-    Live-widget
+  Live-widget
 
       Upotettava "Mini-sää"-komponentti esim. muille sivuille tai projektin esittelyyn.
 
-    Pilvipalveluun julkaisu
+  Pilvipalveluun julkaisu
 
       Frontend Verceliin tai Netlifyyn
 
