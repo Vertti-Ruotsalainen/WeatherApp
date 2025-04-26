@@ -1,6 +1,6 @@
 # WeatherApp 🌤️
 
-WeatherApp on responsiivinen sääsovellus, joka hakee säätilan ja 5 päivän ennusteen käyttäjän syöttämälle kaupungille OpenWeatherMap-API:n kautta. Käyttäjät voivat luoda oman tilin, tallentaa hakuhistorian sekä hallita profiilitietojaan.
+**WeatherApp** on responsiivinen sääsovellus, joka hakee säätilan ja 5 päivän ennusteen käyttäjän syöttämälle kaupungille OpenWeatherMap-API:n kautta. Käyttäjät voivat luoda oman tilin, tallentaa hakuhistorian sekä hallita profiilitietojaan.
 ## 📌 Projektin ominaisuudet:
 
 - **Käyttäjähallinta**: Rekisteröityminen ja sisäänkirjautuminen JWT-tokeneilla.
