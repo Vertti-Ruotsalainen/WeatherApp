@@ -6,4 +6,5 @@
 | 10.4.2025 | 4 | Project phase 2 | Basic structure and main functionalities  |
 | 11.4.2025 | 4 | Project phase 2 | Basic structure and main functionalities  |
 | 12.4.2025 | 4 | Project phase 2 | Basic structure and main functionalities  |
-| 13.4.2025 | - | Project phase 2 | Basic structure and main functionalities  |
+| 13.4.2025 | 4 | Project phase 2 | Basic structure and main functionalities  |
+| 26.4.2025 | 6 | Project phase 3 | Updates  |

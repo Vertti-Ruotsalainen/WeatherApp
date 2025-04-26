@@ -112,6 +112,8 @@ Rakenneperiaatteet:
 
 ✅ Responsive-napit sivun kulmissa (Profiili / Kirjaudu ulos)
 
+ Kuvia dokumentin alussa
+
 ## 7. Code quality and documentation
 
 Koodi on jaettu komponentteihin ja reitteihin
