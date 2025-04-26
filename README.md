@@ -15,8 +15,13 @@ WeatherApp on responsiivinen sääsovellus, joka hakee säätilan ja 5 päivän 
 
 🚀 Teknologiat:
 Osa | Teknologia
+
 Frontend | React.js, CSS3, HTML5
+
 Backend | Node.js, Express
+
 Tietokanta | PostgreSQL
+
 Autentikointi | JWT (JSON Web Token)
+
 Sää-API | OpenWeatherMap
