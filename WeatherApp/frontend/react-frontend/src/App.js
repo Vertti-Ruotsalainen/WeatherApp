@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import WeatherView from "./components/WeatherView";
 import UserProfile from "./components/UserProfile";
+import WeatherView from "./components/WeatherView";
 
 function App() {
-  const [view, setView] = useState("loading");
+  const [view, setView] = useState("login");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -16,39 +16,19 @@ function App() {
     }
   }, []);
 
-  if (view === "loading") {
-    return <p>Ladataan sovellusta...</p>;
-  }
-
   return (
     <div className="App">
-      {view === "login" && (
-        <>
-          <Login onLoginSuccess={() => setView("weather")} />
-          <p>
-            Ei vielä käyttäjää?{" "}
-            <button onClick={() => setView("register")}>Luo tunnus</button>
-          </p>
-        </>
-      )}
-
-      {view === "register" && (
-        <>
-          <Register onRegisterSuccess={() => setView("login")} />
-          <p>
-            Onko sinulla jo käyttäjä?{" "}
-            <button onClick={() => setView("login")}>Kirjaudu sisään</button>
-          </p>
-        </>
-      )}
-
+      {view === "login" && <Login onLoginSuccess={() => setView("weather")} />}
+      {view === "register" && <Register onRegister={() => setView("login")} />}
       {view === "weather" && (
         <WeatherView
-          onLogout={() => setView("login")}
+          onLogout={() => {
+            localStorage.removeItem("token");
+            setView("login");
+          }}
           onProfile={() => setView("profile")}
         />
       )}
-
       {view === "profile" && (
         <UserProfile onBack={() => setView("weather")} />
       )}

@@ -24,7 +24,13 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <style>
+      /* Oletuksena root-kontainer (tai .weather-app) peittää koko ikkunan */
+      #root {
+        min-height: 100vh;
+        background: url('/assets/weather-photo.jpg') center/cover no-repeat;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -1,106 +1,104 @@
-import { useState, useEffect } from "react";
+// src/components/WeatherView.js
+import React, { useState, useEffect } from "react";
 import "./WeatherView.css";
+//import SearchBar from "./UtilityComponents/Searchbar";
+import ErrorMessage from "./UtilityComponents/ErrorMessage";
 
-export default function WeatherView({ onLogout, onProfile }) {
+/**
+ * WeatherView-komponentti
+ *
+ * Props:
+ * @param {() => void} onLogout – Funktio, jota kutsutaan kun käyttäjä haluaa kirjautua ulos.
+ * @param {() => void} onProfile – Funktio, jota kutsutaan kun käyttäjä avaa profiilinsa.
+ */
+function WeatherView({ onLogout, onProfile }) {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
-  const [isAuthorized, setIsAuthorized] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setIsAuthorized(false);
-    } else {
-      fetch("http://localhost:5001/api/auth/preferences", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.location) {
-            setCity(data.location);
-            fetchWeather(data.location);
-          }
-        })
-        .catch((err) => console.error("Virhe haettaessa asetuksia:", err));
-    }
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setIsAuthorized(false);
-    } else {
-      setIsAuthorized(true);
-    }
+    // Jos haluat hakea automaattisesti esim. viimeisimmän kaupungin,
+    // voit laittaa tänne setCity(...) ja fetchWeather(...)
   }, []);
 
   const fetchWeather = async (inputCity = city) => {
-    if (!inputCity) return;
-    const apiKey = "bfa5bea0c2b5473f5c11514a3782068c";
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&units=metric&lang=fi&appid=${apiKey}`;
-
     try {
+      setError("");
+      setWeather(null);
+
+      // Lue API-avain .env-tiedostosta (REACT_APP_OPENWEATHER_API_KEY)
+      const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
+      if (!apiKey) {
+        throw new Error("API-avain puuttuu ympäristömuuttujasta");
+      }
+
+      const url =
+        `https://api.openweathermap.org/data/2.5/weather` +
+        `?q=${encodeURIComponent(inputCity)}` +
+        `&units=metric` +
+        `&appid=${apiKey}`;
+
       const res = await fetch(url);
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || "OpenWeatherMap-virhe");
+      }
       const data = await res.json();
       setWeather(data);
-
-      const token = localStorage.getItem("token");
-      await fetch("http://localhost:5001/api/auth/preferences", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ location: inputCity, units: "metric" }),
-      });
-
-    } catch (error) {
-      console.error("Virhe haettaessa säätietoja:", error);
+    } catch (err) {
+      console.error("Virhe haettaessa säätietoja:", err);
+      setError(
+        err.message.includes("city")
+          ? "Kaupunki ei löytynyt."
+          : "Ei saatu säätietoja – yritä myöhemmin uudelleen"
+      );
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    if (onLogout) onLogout();
-  };
-
-  if (!isAuthorized) {
-    return <p>Et ole kirjautunut sisään. Palaa kirjautumissivulle.</p>;
-  }
-
   return (
     <div className="weather-app">
-      <header className="unified-header">
-        <button className="profile-button fixed-left" onClick={onProfile}>Profiili</button>
-        <button className="logout-button fixed-right" onClick={handleLogout}>Kirjaudu ulos</button>
-        <div className="header-content">
-          <div className="header-center">
-            <h1>Sääsovellus</h1>
-            <div className="search-bar">
-              <input
-                type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="Syötä kaupunki..."
-              />
-              <button onClick={() => fetchWeather()}>Hae sää</button>
-            </div>
-          </div>
+      <header className="weather-header">
+        <button className="profile-btn" onClick={onProfile}>
+          Profiili
+        </button>
+        <h1 className="app-title">Sääsovellus</h1>
+        <button className="logout-btn" onClick={onLogout}>
+          Kirjaudu ulos
+        </button>
+
+        <div className="search-container">
+          <input
+            className="city-input"
+            type="text"
+            value={city}
+            placeholder="Syötä kaupunki..."
+            onChange={(e) => setCity(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && fetchWeather(city)}
+          />
+          <button
+            className="search-button"
+            onClick={() => fetchWeather(city)}
+          >
+            Hae
+          </button>
         </div>
       </header>
 
       <main>
+        {error && <ErrorMessage message={error} />}
         {weather && (
-          <div id="weatherContainer">
-            <h2>{weather.name}</h2>
-            <p>Lämpötila: {weather.main.temp}°C</p>
-            <p>{weather.weather[0].description}</p>
-            <p>Tuulen nopeus: {weather.wind.speed} m/s</p>
+          <div className="weather-window">
+            <div className="weather-card">
+              <h2>{weather.name}</h2>
+              <p>Lämpötila: {weather.main.temp.toFixed(1)}°C</p>
+              <p>{weather.weather[0].description}</p>
+              <p>Tuulen nopeus: {weather.wind.speed} m/s</p>
+            </div>
           </div>
         )}
       </main>
     </div>
   );
 }
+
+export default WeatherView;
