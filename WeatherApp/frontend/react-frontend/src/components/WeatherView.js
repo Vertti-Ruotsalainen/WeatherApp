@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./WeatherView.css";
 //import SearchBar from "./UtilityComponents/Searchbar";
 import ErrorMessage from "./UtilityComponents/ErrorMessage";
+import Forecast from "./Forecast";
 
 /**
  * WeatherView-komponentti
@@ -15,6 +16,7 @@ function WeatherView({ onLogout, onProfile }) {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
+  const [showForecast, setShowForecast] = useState(false);
 
   useEffect(() => {
     // Jos haluat hakea automaattisesti esim. viimeisimmän kaupungin,
@@ -82,20 +84,49 @@ function WeatherView({ onLogout, onProfile }) {
             Hae
           </button>
         </div>
+         {/* Toggle nykyisen ja 5pv näkymän välillä */}
+       {weather && (
+         <div className="view-toggle">
+           <button
+             className={!showForecast ? 'active' : ''}
+             onClick={() => setShowForecast(false)}
+           >
+             Nykyinen sää
+           </button>
+           <button
+             className={showForecast ? 'active' : ''}
+             onClick={() => setShowForecast(true)}
+           >
+             5pv sää
+           </button>
+         </div>
+       )}
       </header>
 
       <main>
         {error && <ErrorMessage message={error} />}
-        {weather && (
-          <div className="weather-window">
-            <div className="weather-card">
-              <h2>{weather.name}</h2>
-              <p>Lämpötila: {weather.main.temp.toFixed(1)}°C</p>
-              <p>{weather.weather[0].description}</p>
-              <p>Tuulen nopeus: {weather.wind.speed} m/s</p>
-            </div>
-          </div>
-        )}
+        {weather && !showForecast && (
+         <div className="weather-window">
+           <div className="weather-card">
+             <h2>{weather.name}</h2>
+             <div className="weather-icon">
+         <img
+           src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+           alt={weather.weather[0].description}
+           title={weather.weather[0].description}
+         />
+       </div>
+             <p>Lämpötila: {weather.main.temp.toFixed(1)}°C</p>
+       {/* korvaava ikoni-linj a */}
+       <p>Tuulen nopeus: {weather.wind.speed} m/s</p>
+           </div>
+         </div>
+       )}
+
+       {showForecast && city && (
+         <Forecast city={city} />
+       )}
+        
       </main>
     </div>
   );

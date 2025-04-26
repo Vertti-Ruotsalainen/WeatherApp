@@ -1,5 +1,5 @@
 // src/utils/api.js
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 /**
  * authFetch – tekee fetch-kutsun vain, jos localStorage.token on kelvollinen JWT
@@ -14,7 +14,6 @@ export async function authFetch(url, options = {}) {
     throw new Error('Token puuttuu');
   }
 
-  // Puretaan exp ja tarkistetaan voimassaolo
   let payload;
   try {
     payload = jwtDecode(token);
@@ -27,7 +26,6 @@ export async function authFetch(url, options = {}) {
     throw new Error('Virheellinen token');
   }
 
-  // Lisätään Authorization-header
   const headers = {
     ...(options.headers || {}),
     Authorization: `Bearer ${token}`,
