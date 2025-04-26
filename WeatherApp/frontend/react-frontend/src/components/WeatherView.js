@@ -1,9 +1,10 @@
 // src/components/WeatherView.js
 import React, { useState, useEffect } from "react";
 import "./WeatherView.css";
-//import SearchBar from "./UtilityComponents/Searchbar";
 import ErrorMessage from "./UtilityComponents/ErrorMessage";
 import Forecast from "./Forecast";
+import SearchHistory from "./SearchHistory";
+import { loadHistory, addToHistory, clearHistory } from "../utils/historyService";
 
 /**
  * WeatherView-komponentti
@@ -17,21 +18,21 @@ function WeatherView({ onLogout, onProfile }) {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
   const [showForecast, setShowForecast] = useState(false);
+  const [history, setHistory] = useState(loadHistory());
 
-  useEffect(() => {
-    // Jos haluat hakea automaattisesti esim. viimeisimmän kaupungin,
-    // voit laittaa tänne setCity(...) ja fetchWeather(...)
-  }, []);
+  const fetchWeather = async (inputCity) => {
+    if (!inputCity) {
+      setError("Syötä kaupunki.");
+      return;
+    }
 
-  const fetchWeather = async (inputCity = city) => {
     try {
       setError("");
       setWeather(null);
 
-      // Lue API-avain .env-tiedostosta (REACT_APP_OPENWEATHER_API_KEY)
       const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
       if (!apiKey) {
-        throw new Error("API-avain puuttuu ympäristömuuttujasta");
+        throw new Error("API-avain puuttuu");
       }
 
       const url =
@@ -47,14 +48,28 @@ function WeatherView({ onLogout, onProfile }) {
       }
       const data = await res.json();
       setWeather(data);
+
+      // Päivitä hakuhistoria
+      const updated = addToHistory(inputCity);
+      setHistory(updated);
     } catch (err) {
       console.error("Virhe haettaessa säätietoja:", err);
       setError(
-        err.message.includes("city")
+        err.message.toLowerCase().includes("city")
           ? "Kaupunki ei löytynyt."
-          : "Ei saatu säätietoja – yritä myöhemmin uudelleen"
+          : "Ei saatu säätietoja – yritä myöhemmin."
       );
     }
+  };
+
+  const handleSelectHistory = (cityName) => {
+    setCity(cityName);
+    fetchWeather(cityName);
+  };
+
+  const handleClearHistory = () => {
+    clearHistory();
+    setHistory([]);
   };
 
   return (
@@ -73,7 +88,7 @@ function WeatherView({ onLogout, onProfile }) {
             className="city-input"
             type="text"
             value={city}
-            placeholder="Syötä kaupunki..."
+            placeholder="Syötä kaupunki…"
             onChange={(e) => setCity(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && fetchWeather(city)}
           />
@@ -84,49 +99,53 @@ function WeatherView({ onLogout, onProfile }) {
             Hae
           </button>
         </div>
-         {/* Toggle nykyisen ja 5pv näkymän välillä */}
-       {weather && (
-         <div className="view-toggle">
-           <button
-             className={!showForecast ? 'active' : ''}
-             onClick={() => setShowForecast(false)}
-           >
-             Nykyinen sää
-           </button>
-           <button
-             className={showForecast ? 'active' : ''}
-             onClick={() => setShowForecast(true)}
-           >
-             5pv sää
-           </button>
-         </div>
-       )}
+
+        {weather && (
+          <div className="view-toggle">
+            <button
+              className={!showForecast ? "active" : ""}
+              onClick={() => setShowForecast(false)}
+            >
+              Nykyinen sää
+            </button>
+            <button
+              className={showForecast ? "active" : ""}
+              onClick={() => setShowForecast(true)}
+            >
+              5pv sää
+            </button>
+          </div>
+        )}
       </header>
+
+      {/* Hakuhistoria hakukentän alapuolella */}
+      <SearchHistory
+        history={history}
+        onSelect={handleSelectHistory}
+        onClear={handleClearHistory}
+      />
 
       <main>
         {error && <ErrorMessage message={error} />}
-        {weather && !showForecast && (
-         <div className="weather-window">
-           <div className="weather-card">
-             <h2>{weather.name}</h2>
-             <div className="weather-icon">
-         <img
-           src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-           alt={weather.weather[0].description}
-           title={weather.weather[0].description}
-         />
-       </div>
-             <p>Lämpötila: {weather.main.temp.toFixed(1)}°C</p>
-       {/* korvaava ikoni-linj a */}
-       <p>Tuulen nopeus: {weather.wind.speed} m/s</p>
-           </div>
-         </div>
-       )}
 
-       {showForecast && city && (
-         <Forecast city={city} />
-       )}
-        
+        {weather && !showForecast && (
+          <div className="weather-window">
+            <div className="weather-card">
+              <h2>{weather.name}</h2>
+              <p>Lämpötila: {weather.main.temp.toFixed(1)}°C</p>
+              <div className="weather-icon">
+                <img
+                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                  alt={weather.weather[0].description}
+                  title={weather.weather[0].description}
+                />
+              </div>
+              <p>Tuulen nopeus: {weather.wind.speed} m/s</p>
+            </div>
+          </div>
+        )}
+
+        {showForecast && city && <Forecast city={city} />}
       </main>
     </div>
   );

@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import Login from './components/Login';
 import Register from './components/Register';
 import WeatherView from './components/WeatherView';
+import Profile from './components/Profile';
 
 function App() {
   const [view, setView] = useState('login');
@@ -42,7 +43,15 @@ function App() {
           onProfile={() => setView('profile')}
         />
       )}
-      {/* Profiili‐näkymä mukaan tarvittaessa */}
+      {view === 'profile' && (
+        <Profile
+          onBack={() => setView('weather')}
+          onLogout={() => {
+            localStorage.removeItem('token');
+            setView('login');
+          }}
+        />
+      )}
     </>
   );
 }
