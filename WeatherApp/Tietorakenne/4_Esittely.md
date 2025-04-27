@@ -78,6 +78,7 @@ Alla on lista vaiheessa 1 määritellyistä käyttötapauksista sekä niiden tot
 - Profiilitietojen muokkausominaisuuden lisääminen.
 - Admin-paneelin toteutus (käyttäjien ja hakujen hallinta).
 - Sääilmoitusten lähettäminen käyttäjille ilmoituksina.
+- Sovelluksen julkaisu pilvipalveluun
 
 ---
 
