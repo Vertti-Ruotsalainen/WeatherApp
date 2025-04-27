@@ -10,5 +10,6 @@
 | 24.4.2025 | 5 | Project phase 3 | Updates  |
 | 25.4.2025 | 6 | Project phase 3 & phase 4| Updates & Presentation |
 | 26.4.2025 | 4 | Project phase 3 & phase 4| Updates & Presentation |
-| 27.4.2025 | - | Project phase 3 & phase 4| Updates & Presentation |
-
+| 27.4.2025 | 4 | Project phase 3 & phase 4| Updates & Presentation |
+           | 38h |
+            
