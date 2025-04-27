@@ -102,5 +102,5 @@ Alla on lista vaiheessa 1 määritellyistä käyttötapauksista sekä niiden tot
 
 ## 🪢 Esityksen linkki
 
+https://youtu.be/foPktZsjQqA
 
-*(Lisätään linkki myöhemmin, jos esityksestä tehdään tallenne.)*
